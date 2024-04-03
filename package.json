@@ -6,6 +6,7 @@
   "author": {
     "name": "luo"
   },
+  "repository": "https://github.com/LuoTianStyle/uni-frame.git",
   "engines": {
     "node": ">=18",
     "pnpm": ">=7.30"
