@@ -1,5 +1,5 @@
 {
-  "Print unifr Vue3 SFC": {
+  "Print dd Vue3 SFC": {
     "scope": "vue",
     "prefix": "v3",
     "body": [
@@ -7,7 +7,7 @@
       "{",
       "  layout: 'default',",
       "  style: {",
-      "    navigationBarTitleText: '$1',"
+      "    navigationBarTitleText: '$1',",
       "  },",
       "}",
       "</route>\n",
@@ -22,17 +22,17 @@
       "</style>\n",
     ],
   },
-  "Print unifr style": {
+  "Print dd style": {
     "scope": "vue",
     "prefix": "st",
     "body": ["<style lang=\"scss\" scoped>", "//", "</style>\n"],
   },
-  "Print unifr script": {
+  "Print dd script": {
     "scope": "vue",
     "prefix": "sc",
     "body": ["<script lang=\"ts\" setup>", "//$3", "</script>\n"],
   },
-  "Print unifr template": {
+  "Print dd template": {
     "scope": "vue",
     "prefix": "te",
     "body": ["<template>", "  <view class=\"\">$1</view>", "</template>\n"],

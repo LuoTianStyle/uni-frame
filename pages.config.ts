@@ -3,11 +3,15 @@ import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
 export default defineUniPages({
   globalStyle: {
     navigationStyle: 'default',
-    navigationBarTitleText: 'unifr',
+    navigationBarTitleText: '递道供货',
     navigationBarBackgroundColor: '#f8f8f8',
     navigationBarTextStyle: 'black',
     backgroundColor: '#FFFFFF',
+    h5: {
+      navigationStyle: 'custom',
+    },
   },
+
   easycom: {
     autoscan: true,
     custom: {
@@ -15,14 +19,14 @@ export default defineUniPages({
     },
   },
   tabBar: {
-    color: '#999999',
-    selectedColor: '#018d71',
-    backgroundColor: '#F8F8F8',
-    borderStyle: 'black',
-    height: '50px',
+    color: '#999',
+    selectedColor: '#333',
+    backgroundColor: '#fff',
+    borderStyle: 'none',
+    height: '58px',
     fontSize: '10px',
-    iconWidth: '24px',
-    spacing: '3px',
+    iconWidth: '20px',
+    spacing: '4px',
     list: [
       {
         iconPath: 'static/tabbar/home.png',
@@ -31,10 +35,16 @@ export default defineUniPages({
         text: '首页',
       },
       {
-        iconPath: 'static/tabbar/example.png',
-        selectedIconPath: 'static/tabbar/exampleHL.png',
-        pagePath: 'pages/index/about',
-        text: '关于',
+        iconPath: 'static/tabbar/order.png',
+        selectedIconPath: 'static/tabbar/orderHL.png',
+        pagePath: 'pages/order/index',
+        text: '订单',
+      },
+      {
+        iconPath: 'static/tabbar/personal.png',
+        selectedIconPath: 'static/tabbar/personalHL.png',
+        pagePath: 'pages/my/index',
+        text: '我的',
       },
     ],
   },

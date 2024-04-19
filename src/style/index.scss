@@ -1,7 +1,102 @@
-.test {
-  // 可以通过 @apply 多个样式封装整体样式
-  @apply mt-4 ml-4;
+.demo {
+  //   @apply font-size-3 ml-4;
+}
 
-  padding-top: 4px;
-  color: red;
+$uni-color-primary: #f19c38;
+$wot-border-color: #dcdfe5;
+
+page {
+  height: 100%;
+}
+
+.uni-toast {
+  padding: 32rpx 36rpx;
+  background: rgb(51 51 51 / 90%);
+  border-radius: 8rpx;
+
+  .uni-toast__icon {
+    width: 36rpx !important;
+    height: 36rpx !important;
+    margin: 0 0 8rpx;
+  }
+
+  .uni-toast__content {
+    margin: 0;
+    font-size: 24rpx;
+  }
+}
+
+.wd-card {
+  box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%) !important;
+
+  .wd-card__title-content {
+    padding: 22rpx 14rpx !important;
+    line-height: 36rpx !important;
+  }
+}
+
+.wd-picker__cell {
+  padding: 32rpx 14rpx !important;
+}
+
+.wd-input {
+  &.is-cell {
+    &.is-border {
+      &::after {
+        left: 20rpx !important;
+        width: calc(100% - 40rpx) !important;
+      }
+    }
+  }
+}
+
+.wd-picker {
+  &.is-border {
+    .wd-picker__cell {
+      &::after {
+        left: 20rpx !important;
+        width: calc(100% - 40rpx) !important;
+      }
+    }
+  }
+}
+
+.wd-cell {
+  &.is-border {
+    .wd-cell__wrapper {
+      &.is-vertical {
+        padding-right: 18rpx !important;
+      }
+
+      &::after {
+        width: calc(100% - 26rpx) !important;
+      }
+    }
+  }
+}
+
+.uni-modal__bd {
+  padding: 32rpx 34rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #34332e;
+  text-align: center;
+}
+
+.uni-modal__ft::after {
+  border-top: 2rpx solid #f2f3f6;
+}
+
+.uni-modal__btn::after {
+  border-left: 2rpx solid #f2f3f6;
+}
+
+.uni-modal__btn {
+  font-size: 32rpx !important;
+  line-height: 86rpx;
+  color: #34332e !important;
+
+  &.uni-modal__btn_primary {
+    color: $uni-color-primary !important;
+  }
 }

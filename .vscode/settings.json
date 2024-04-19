@@ -43,8 +43,7 @@
     "refresherrefresh",
     "scrolltolower",
     "tabbar",
-    "unifr",
-    "uvui",
+    "wechat",
     "WechatMiniprogram"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
