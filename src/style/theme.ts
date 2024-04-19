@@ -19,5 +19,7 @@ const themeVars: ConfigProviderThemeVars = {
   cardMargin: '0',
   cardPadding: '0 6px',
   colorBorderLight: '#dcdfe5',
+  tabsNavFs: '15px',
+  tabsNavHeight: '45px',
 }
 export default themeVars

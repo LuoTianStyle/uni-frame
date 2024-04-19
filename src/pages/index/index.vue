@@ -11,76 +11,100 @@
 <template>
   <view class="overflow-hidden index-container" :style="{ marginTop: safeAreaInsets?.top + 'px' }">
     <view class="index-container-inner">
-      <wd-sticky :offset-top="-44" @click="linTo">
+      <wd-sticky :offset-top="0" @click="linTo">
         <view class="index-title">首页</view>
         <wd-search disabled class="search-input" hide-cancel />
       </wd-sticky>
       <view class="index-notice">
+        <view class="index-notice-delete">
+          <image class="index-notice-delete-image" src="/static/images/message_delete.png" />
+        </view>
         <view class="index-notice-left">
           <image class="index-notice-left-image" src="/static/images/message.png" />
         </view>
-        <!-- <view class="">
-          <view class="">请于今日9:00-14:00完成报价</view>
-          <view class="">
+        <view class="index-notice-right">
+          <view class="index-notice-right-title">请于今日9:00-14:00完成报价</view>
+          <view class="index-notice-right-describe">
             非时段内不可报价，如果价格变动，会进入待上架，审核通过后会重新上架，被驳回的会进入已下架。
           </view>
-        </view> -->
+        </view>
       </view>
-      <view class="">发货地缺失</view>
-      <wd-tabs v-model="tab">
-        <block
-          v-for="item in [
-            { id: 1, label: '已上架' },
-            { id: 2, label: '待上架' },
-            { id: 3, label: '已下架' },
-          ]"
-          :key="item.id"
-        >
-          <wd-tab :title="item.label">
-            <view v-if="tab === 0" class="content">
-              <view
-                v-for="item in [
-                  {
-                    id: 1,
-                    label: '全部',
-                  },
-                  {
-                    id: 2,
-                    label: '待更新',
-                  },
-                  {
-                    id: 3,
-                    label: '已更新',
-                  },
-                  {
-                    id: 4,
-                    label: '长期报价',
-                  },
-                ]"
-                :key="item.id"
-              >
-                {{ item.label }}
+      <view class="index-tab-box">
+        <wd-tabs v-model="tab" class="index-tab-tab" :lineWidth="24" :lineHeight="6">
+          <block
+            v-for="item in [
+              { id: 1, label: '已上架' },
+              { id: 2, label: '待上架' },
+              { id: 3, label: '已下架' },
+            ]"
+            :key="item.id"
+          >
+            <wd-tab :title="item.label">
+              <view v-if="tab === 0" class="index-tab-content">
+                <view
+                  :class="
+                    item.id === 1 ? 'index-tab-content-item active' : 'index-tab-content-item'
+                  "
+                  v-for="item in [
+                    {
+                      id: 1,
+                      label: '全部',
+                    },
+                    {
+                      id: 2,
+                      label: '待更新',
+                    },
+                    {
+                      id: 3,
+                      label: '已更新',
+                    },
+                    {
+                      id: 4,
+                      label: '长期报价',
+                    },
+                  ]"
+                  :key="item.id"
+                >
+                  {{ item.label }}
+                </view>
               </view>
-            </view>
-          </wd-tab>
-        </block>
-      </wd-tabs>
-      <view class="">一键刷新（保持昨日报价）</view>
-      <view class="">
-        <view class="">
-          <image class="history-delete" src="/static/images/message.png" />
-        </view>
-        <view class="">
-          <view class="">苹果2斤/箱</view>
-          <view class="">
-            <view class="">毛重:2 | 斤/箱</view>
-            <view class="">净重:2 | 斤/箱</view>
-            <view class="">包装0 | 斤/箱</view>
-          </view>
-          <view class="">￥10.00/箱</view>
-          <view class="">长期报价</view>
+            </wd-tab>
+          </block>
+        </wd-tabs>
+        <view class="index-tab-address">
+          <image class="index-tab-address-image" src="/static/images/address.png" />
+          <text>发货地缺失</text>
         </view>
       </view>
+
+      <view class="reload-box">
+        <view class="reload-image-box">
+          <image class="reload-image" src="/static/images/reload.png" />
+        </view>
+        <view class="reload-text">一键刷新（保持昨日报价）</view>
+      </view>
+      <view class="list-container">
+        <view class="list-box" v-for="item in [1, 2, 3, 4]" :key="item">
+          <view class="list-box-left">
+            <image class="list-box-left-image" src="/static/images/avater.png" />
+          </view>
+          <view class="list-box-right">
+            <view class="list-box-right-title">苹果2斤/箱</view>
+            <view class="list-box-right-tag">
+              <view class="mr1">毛重:2 | 斤/箱</view>
+              <view>净重:2 | 斤/箱</view>
+            </view>
+            <view class="list-box-right-tag">
+              <view>包装0 | 斤/箱</view>
+            </view>
+            <view class="list-box-right-content">
+              <view class="list-box-right-price">￥10.00/箱</view>
+              <view class="list-box-right-type">长期报价</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
       <wd-fab type="primary" position="right-bottom" direction="top">
         <wd-button custom-class="custom-button" type="primary" round>
           <wd-icon name="github-filled" size="22px"></wd-icon>
@@ -151,32 +175,208 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
       :deep(.wd-search__cover) {
         height: 86rpx;
         background: #fff;
-        border-radius: 8rpx;
+        border-radius: 16rpx;
         box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
       }
 
       :deep(.wd-search__field) {
         height: 86rpx;
         background: #fff;
-        border-radius: 8rpx;
+        border-radius: 16rpx;
         box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
       }
     }
 
     .index-notice {
+      position: relative;
       display: flex;
-      align-items: center;
+      margin-top: 106rpx;
       background: #fff;
+      border-radius: 16rpx;
       box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
 
+      .index-notice-delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 34rpx;
+        height: 30rpx;
+        cursor: pointer;
+
+        .index-notice-delete-image {
+          display: block;
+          width: 34rpx;
+          height: 30rpx;
+        }
+      }
+
       .index-notice-left {
-        width: 154rpx;
-        height: 154rpx;
+        box-sizing: border-box;
         padding: 36rpx 12rpx 34rpx 16rpx;
 
         .index-notice-left-image {
           width: 84rpx;
           height: 84rpx;
+        }
+      }
+
+      .index-notice-right {
+        padding-right: 28rpx;
+
+        .index-notice-right-title {
+          padding-top: 26rpx;
+          padding-bottom: 6rpx;
+          font-size: 26rpx;
+          font-weight: 500;
+          line-height: 36rpx;
+          color: #333;
+        }
+
+        .index-notice-right-describe {
+          padding-bottom: 24rpx;
+          font-size: 22rpx;
+          font-weight: 400;
+          line-height: 30rpx;
+          color: #999;
+        }
+      }
+    }
+
+    .index-tab-box {
+      position: relative;
+      margin-top: 20rpx;
+
+      .index-tab-address {
+        position: absolute;
+        top: 24rpx;
+        right: 28rpx;
+        display: flex;
+        align-items: center;
+        font-size: 24rpx;
+        color: $uni-color-primary;
+
+        .index-tab-address-image {
+          width: 18rpx;
+          height: 22rpx;
+          margin-right: 8rpx;
+        }
+      }
+
+      .index-tab-tab {
+        :deep(.wd-tabs__nav-container) {
+          width: 60%;
+        }
+      }
+
+      .index-tab-content {
+        display: flex;
+        padding: 8rpx 0 28rpx 10rpx;
+
+        .index-tab-content-item {
+          padding: 0 24rpx;
+          margin: 0 14rpx;
+          font-size: 24rpx;
+          font-weight: 500;
+          line-height: 52rpx;
+          color: #666;
+          background: #f5f5f9;
+          border-radius: 32rpx;
+
+          &.active {
+            color: $uni-color-primary;
+            background: #fff4e3;
+          }
+        }
+      }
+    }
+
+    .reload-box {
+      display: flex;
+      justify-content: center;
+      padding: 18rpx 0 16rpx;
+      margin-top: 20rpx;
+      font-size: 24rpx;
+      line-height: 28rpx;
+      color: $uni-color-primary;
+      background: #fff;
+      border-radius: 16rpx;
+      box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
+
+      .reload-image-box {
+        width: 27rpx;
+        height: 28rpx;
+        margin-right: 12rpx;
+
+        .reload-image {
+          display: block;
+          width: 27rpx;
+          height: 28rpx;
+        }
+      }
+    }
+
+    .list-container {
+      padding-bottom: 136rpx;
+
+      .list-box {
+        display: flex;
+        margin-top: 20rpx;
+        background: #fff;
+        border-radius: 16rpx;
+        box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
+
+        .list-box-left {
+          width: 220rpx;
+          height: 220rpx;
+          margin-right: 20rpx;
+
+          .list-box-left-image {
+            display: block;
+            width: 220rpx;
+            height: 220rpx;
+          }
+        }
+
+        .list-box-right {
+          position: relative;
+          flex: 1;
+          padding-right: 28rpx;
+
+          .list-box-right-title {
+            padding: 14rpx 0 6rpx;
+            font-size: 30rpx;
+            line-height: 42rpx;
+            color: #333;
+          }
+
+          .list-box-right-tag {
+            display: flex;
+            font-size: 22rpx;
+            font-weight: 400;
+            color: #666;
+          }
+
+          .list-box-right-content {
+            position: absolute;
+            bottom: 14rpx;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% - 28rpx);
+
+            .list-box-right-price {
+              font-size: 26rpx;
+              font-weight: 500;
+              color: #f94a66;
+            }
+
+            .list-box-right-type {
+              font-size: 24rpx;
+              line-height: 24rpx;
+              color: #666;
+            }
+          }
         }
       }
     }

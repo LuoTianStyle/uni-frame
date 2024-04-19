@@ -100,3 +100,13 @@ page {
     color: $uni-color-primary !important;
   }
 }
+
+.wd-tabs__line {
+  bottom: 6rpx !important;
+  border-radius: 8rpx !important;
+  box-shadow: 0 4rpx 8rpx 2rpx rgb(255 151 0 / 20%);
+}
+
+.wd-tabs__nav {
+  padding-bottom: 12rpx;
+}
