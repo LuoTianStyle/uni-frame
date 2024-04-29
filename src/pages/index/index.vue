@@ -11,10 +11,8 @@
 <template>
   <view class="overflow-hidden index-container" :style="{ marginTop: safeAreaInsets?.top + 'px' }">
     <view class="index-container-inner">
-      <wd-sticky :offset-top="0" @click="linTo">
-        <view class="index-title">首页</view>
-        <wd-search disabled class="search-input" hide-cancel />
-      </wd-sticky>
+      <view class="index-title">首页</view>
+      <wd-search disabled class="search-input" hide-cancel @click="linTo('/pages/search/index')" />
       <view class="index-notice">
         <view class="index-notice-delete">
           <image class="index-notice-delete-image" src="/static/images/message_delete.png" />
@@ -29,13 +27,14 @@
           </view>
         </view>
       </view>
+      <!-- <wd-sticky :offset-top="-44"> -->
       <view class="index-tab-box">
         <wd-tabs v-model="tab" class="index-tab-tab" :lineWidth="24" :lineHeight="6">
           <block
             v-for="item in [
-              { id: 1, label: '已上架' },
-              { id: 2, label: '待上架' },
-              { id: 3, label: '已下架' },
+              { id: 0, label: '已上架' },
+              { id: 1, label: '待上架' },
+              { id: 2, label: '已下架' },
             ]"
             :key="item.id"
           >
@@ -71,48 +70,57 @@
             </wd-tab>
           </block>
         </wd-tabs>
-        <view class="index-tab-address">
+        <view v-if="tab === 0" class="index-tab-address">
           <image class="index-tab-address-image" src="/static/images/address.png" />
           <text>发货地缺失</text>
         </view>
       </view>
-
-      <view class="reload-box">
+      <!-- </wd-sticky> -->
+      <view v-if="tab === 0" class="reload-box">
         <view class="reload-image-box">
           <image class="reload-image" src="/static/images/reload.png" />
         </view>
         <view class="reload-text">一键刷新（保持昨日报价）</view>
       </view>
       <view class="list-container">
-        <view class="list-box" v-for="item in [1, 2, 3, 4]" :key="item">
-          <view class="list-box-left">
-            <image class="list-box-left-image" src="/static/images/avater.png" />
-          </view>
-          <view class="list-box-right">
-            <view class="list-box-right-title">苹果2斤/箱</view>
-            <view class="list-box-right-tag">
-              <view class="mr1">毛重:2 | 斤/箱</view>
-              <view>净重:2 | 斤/箱</view>
+        <view class="list-box-wrapper" v-for="item in [1, 2, 3, 4, 5, 6, 7, 8]" :key="item">
+          <view v-if="tab === 2" class="list-box-right-delete">删除</view>
+          <view :class="tab !== 2 ? 'list-box' : 'list-box list-box-disabled'">
+            <view class="list-box-left">
+              <image class="list-box-left-image" src="/static/images/avater.png" />
             </view>
-            <view class="list-box-right-tag">
-              <view>包装0 | 斤/箱</view>
-            </view>
-            <view class="list-box-right-content">
-              <view class="list-box-right-price">￥10.00/箱</view>
-              <view class="list-box-right-type">长期报价</view>
+            <view class="list-box-right">
+              <view
+                :class="
+                  tab !== 2
+                    ? 'list-box-right-title ellipsis-2'
+                    : 'list-box-right-title ellipsis-2 list-box-right-title-pr'
+                "
+              >
+                {{
+                  '苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤苹果2斤'.slice(
+                    0,
+                    Math.floor(Math.random() * 100),
+                  )
+                }}
+              </view>
+              <view class="list-box-right-tag">
+                <view class="mr1">毛重:2 | 斤/箱</view>
+                <view>净重:2 | 斤/箱</view>
+              </view>
+              <view class="list-box-right-tag">
+                <view>包装0 | 斤/箱</view>
+              </view>
+              <view class="list-box-right-content">
+                <view class="list-box-right-price">￥10.00/箱</view>
+                <view class="list-box-right-type">长期报价</view>
+              </view>
             </view>
           </view>
         </view>
       </view>
 
-      <wd-fab type="primary" position="right-bottom" direction="top">
-        <wd-button custom-class="custom-button" type="primary" round>
-          <wd-icon name="github-filled" size="22px"></wd-icon>
-        </wd-button>
-        <wd-button custom-class="custom-button" type="success" round>
-          <wd-icon name="star" size="22px"></wd-icon>
-        </wd-button>
-      </wd-fab>
+      <wd-fab type="primary" activeIcon="add" @click="linTo('/pages/add/index')"></wd-fab>
     </view>
   </view>
 </template>
@@ -130,7 +138,7 @@ onLoad(() => {
   console.log(text)
 })
 
-const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
+const linTo = (url: string) => uni.navigateTo({ url })
 </script>
 
 <style lang="scss" scoped>
@@ -160,6 +168,7 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
     padding: 0 28rpx;
 
     .index-title {
+      padding-top: 88rpx;
       font-size: 36rpx;
       font-weight: 500;
       line-height: 88rpx;
@@ -190,7 +199,7 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
     .index-notice {
       position: relative;
       display: flex;
-      margin-top: 106rpx;
+      margin-top: 24rpx;
       background: #fff;
       border-radius: 16rpx;
       box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
@@ -244,6 +253,7 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
 
     .index-tab-box {
       position: relative;
+      width: calc(100vw - 56rpx);
       margin-top: 20rpx;
 
       .index-tab-address {
@@ -318,12 +328,31 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
     .list-container {
       padding-bottom: 136rpx;
 
+      .list-box-wrapper {
+        position: relative;
+
+        .list-box-right-delete {
+          position: absolute;
+          top: 14rpx;
+          right: 28rpx;
+          z-index: 2;
+          font-size: 24rpx;
+          line-height: 42rpx;
+          color: $uni-color-primary;
+          text-align: right;
+        }
+      }
+
       .list-box {
         display: flex;
         margin-top: 20rpx;
         background: #fff;
         border-radius: 16rpx;
         box-shadow: 0 16rpx 40rpx 2rpx rgb(100 80 52 / 6%);
+
+        &.list-box-disabled {
+          opacity: 0.5;
+        }
 
         .list-box-left {
           width: 220rpx;
@@ -347,6 +376,10 @@ const linTo = () => uni.navigateTo({ url: '/pages/search/index' })
             font-size: 30rpx;
             line-height: 42rpx;
             color: #333;
+
+            &.list-box-right-title-pr {
+              padding-right: 70rpx;
+            }
           }
 
           .list-box-right-tag {

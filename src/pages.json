@@ -56,6 +56,15 @@
       }
     },
     {
+      "path": "pages/add/index",
+      "type": "page",
+      "layout": "base",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "添加商品"
+      }
+    },
+    {
       "path": "pages/login/index",
       "type": "page",
       "style": {
